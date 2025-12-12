@@ -4,449 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RBX Game Source</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #ffffff;
-        }
-
-        .header {
-            background: #fff;
-            position: static;
-            box-shadow: none;
-        }
-
-        .nav-top {
-            background: #fff;
-            padding: 12px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .nav-top .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            position: relative;
-        }
-
-        /* Hamburger button (top-left) */
-        .hamburger {
-            position: absolute;
-            left: -330px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            border: 1px solid #e0e0e0;
-            background: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            color: #4a4a4a;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-        }
-
-        .hamburger:hover {
-            background: #f5f5f5;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        /* Dropdown menu */
-        .dropdown-menu {
-            position: absolute;
-            left: -330px;
-            top: 52px; /* just under the nav bar */
-            background: #ffffff;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-            padding: 8px 0;
-            min-width: 190px;
-            display: none;
-            z-index: 1100;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 16px;
-            font-size: 14px;
-            text-decoration: none;
-            color: #4a4a4a;
-            white-space: nowrap;
-        }
-
-        .dropdown-menu a:hover {
-            background: #f5f5f5;
-            color: #e74c3c;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-links a {
-            color: #4a4a4a;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-
-        /* Scroll to Top Button */
-        #scrollTopBtn {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 45px;
-            height: 45px;
-            background: #ffffff;
-            border: 2px solid #2c3e50;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            color: #2c3e50;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 999;
-        }
-
-        #scrollTopBtn:hover {
-            background: #2c3e50;
-            color: #ffffff;
-        }
+    
+   <link rel="stylesheet" href="shared/style.css">
 
 
-        .nav-links a:hover {
-            color: #e74c3c;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            position: absolute;
-            right: -330px;
-        }
-
-        .social-links a {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1.5px solid #7f8c8d;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #7f8c8d;
-            overflow: hidden;
-            padding: 0;
-        }
-
-        .social-links a img {
-            width: 60%;
-            height: 60%;
-            object-fit: contain;
-            display: block;
-        }
-
-        .social-links a:hover {
-            border-color: #e74c3c;
-            color: #e74c3c;
-        }
-
-        .logo-section {
-            background: #fff;
-            padding: 30px 0;
-            text-align: center;
-        }
-
-        .logo-image img {
-            height: 150px;          /* Adjust logo size */
-            width: auto;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* Remove old text-logo styling */
-        .logo {
-            display: none;
-        }
-
-        .tag {
-            color: #2F4C9F !important;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .tagline {
-            color: #7f8c8d;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background: #ffffff;
-        }
-
-        .featured-post {
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-
-        .featured-image {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .featured-content {
-            padding: 30px;
-        }
-
-        .category-badge {
-            display: inline-block;
-            background: transparent;
-            color: #2F4C9F;                     /* Your chosen blue */
-            padding: 0;
-            border-radius: 0;
-            font-size: 13px;
-            font-family: "Georgia", serif;
-            font-weight: 900;                   /* Bold */
-            text-decoration: none;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;             /* Less spacing for serif fonts */
-        }
-
-        .post-title {
-            font-size: 32px;
-            color: #2c3e50;
-            margin: 10px 0 15px 0;
-            line-height: 1.3;
-        }
-
-        .post-title a {
-            color: #2c3e50;
-            text-decoration: none;
-        }
-
-        .post-title a:hover {
-            color: #3498db;
-        }
-
-        .post-meta {
-            color: #7f8c8d;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .post-excerpt {
-            color: #555;
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .read-more {
-            display: inline-block;
-            background: #e74c3c;
-            color: white;
-            padding: 10px 25px;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        .read-more:hover {
-            background: #c0392b;
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .post-card {
-            background: #fff;
-            transition: transform 0.3s;
-        }
-
-        .post-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .post-card-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            color: white;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .post-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;          /* keeps proportions while filling the box */
-            display: block;
-        }
-
-        .post-card-content {
-            padding: 0;
-        }
-
-        .post-card .category-badge {
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-        }
-
-        .post-card-title {
-            font-size: 26px;
-            margin: 12px 0 15px 0;
-            line-height: 1.3;
-            font-weight: 700;
-        }
-
-        .post-card-title a {
-            color: #2c3e50;
-            text-decoration: none;
-        }
-
-        .post-card-title a:hover {
-            color: #3498db;
-        }
-
-        .post-card-excerpt {
-            color: #555;
-            font-size: 15px;
-            line-height: 1.7;
-            margin-bottom: 18px;
-        }
-
-        .post-card .read-more {
-            background: transparent;
-            color: #2c3e50;
-            padding: 0;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .post-card .read-more:hover {
-            color: #e74c3c;
-            background: transparent;
-        }
-
-        .footer {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 40px 0 20px 0;
-            margin-top: 60px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .footer-nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .footer-nav a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .footer-nav a:hover {
-            color: #3498db;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                font-size: 12px;
-                gap: 15px;
-            }
-
-            .logo {
-                font-size: 32px;
-            }
-
-            .post-title {
-                font-size: 24px;
-            }
-
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .social-links {
-                position: static;
-                transform: none;
-                justify-content: center;
-                margin-top: 20px;
-            }
-        }
-
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .posts-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
 </head>
 <body>
     <header class="header">
@@ -454,19 +15,21 @@
             <div class="container">
             <!-- Hamburger + dropdown -->
             <button class="hamburger" id="menuToggle" aria-label="Open menu">☰</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
 
             <div class="dropdown-menu" id="sideMenu">
                 <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-                <a href="#privacy">Privacy Policy</a>
+                <a href="shared/pages/about-us.html">About Us</a>
+                <a href="shared/pages/contact.html">Contact</a>
+                <a href="shared/pages/privacy-policy.html">Privacy Policy</a>
+                <a href="#newsletter">Newsletter</a>
             </div>
 
             <!-- Main nav links in the center -->
             <ul class="nav-links">
-                <li><a href="#game-updates">GAME UPDATES</a></li>
-                <li><a href="#new-releases">NEW RELEASE</a></li>
-                <li><a href="#upcoming-games">UPCOMING GAMES</a></li>
+                <li><a href="shared/pages/game-upd.html">Game Updates</a></li>
+                <li><a href="shared/pages/new-release.html">New Release</a></li>
+                <li><a href="shared/pages/upcoming-games.html">Upcoming Games</a></li>       
             </ul>
 
             <!-- Social icons on the right -->
@@ -491,8 +54,10 @@
             <p class="tagline">Providing a voice for all indies, one page at a time.</p>
         </div>
     </header>
-
+    
     <main class="container">
+
+    <!-- SPONSORED EVENT PAGE
         <article class="featured-post">
             <div class="post-card-image">
                     <img src="icons/ArticleThumbnail/mageTD.png" alt="Mage Tower Defense Full Release">
@@ -509,52 +74,85 @@
                 <a href="#read" class="read-more">Read Full Article →</a>
             </div>
         </article>
+    -->
 
         <div class="posts-grid">
-            <article class="post-card">
-                <div class="post-card-image">
-                    <img src="icons/ArticleThumbnail/shredApet.png" alt="Shred a Pet: Mini Update">
-                </div>
-                <div class="post-card-content">
-                    <a href="#category" class="category-badge">GAME UPDATES</a>
-                    <h3 class="post-card-title"><a href="#post2">Shred a Pet: Mini Update</a></h3>
-                    <div class="post-meta">By D3VRO (Rbx) · December 7, 2025</div>
-                     <p class="post-card-excerpt">
-                        After a quiet period, Shred a Pet is officially back with a fresh content update—bringing new life, new pets, and new excitement to the game. 
-                        This marks a long-awaited revival for players who’ve been hoping for the next chapter, and the team has delivered with both new collectables and early hints at future gameplay expansion.
-                    </p>
-                    <a href="#read" class="read-more">Continue Reading →</a>
-                </div>
-            </article>
 
-            <article class="post-card">
-                <div class="post-card-image">
-                    <img src="icons/ArticleThumbnail/skylands.png" alt="Skylands Tycoon: A New Era Begins">
-                </div>
-                <div class="post-card-content">
-                    <a href="#category" class="category-badge">UPCOMING GAMES</a>
-                    <h3 class="post-card-title"><a href="#post3">Skylands Tycoon: A New Era Begins</a></h3>
-                    <div class="post-meta">By D3VRO (Rbx) · December 7, 2025</div>
-                     <p class="post-card-excerpt">
-                        A new era dawns for Skylands Tycoon with the release of its latest update, "A New Era Begins." This major update introduces a plethora of new features, enhancements, and content that promise to elevate the gaming experience to unprecedented heights. Players can look forward to an expanded world, new challenges, and a host of quality-of-life improvements that make gameplay smoother and more engaging than ever before.
-                    </p>
-                    <a href="#read" class="read-more">Continue Reading →</a>
-                </div>
-            </article>
+        <!-- Article #1 -->
+        <article class="post-card">
+            <div class="post-card-image">
+            <img src="icons/ArticleThumbnail/mageTD.png" alt="Mage Tower Defense Full Release">
+            </div>
+            <div class="post-card-content">
+            <a href="#category" class="category-badge">NEW RELEASE</a>
+            <h3 class="post-card-title">
+                <a href="shared/articles/mage-tower-defense.html">
+                Mage Tower Defense: Finishing Beta Stage
+                </a>
+            </h3>
+            <div class="post-meta">By D3VRO (Rbx) · December 7, 2025</div>
+            <p class="post-card-excerpt">
+                There’s a quiet storm brewing in the tower-defense genre, and it’s coming from a world where magic is far more dangerous than steel.
+                Mage Tower Defense introduces players to a realm under siege, where spellcasters become the last line between order and chaos. Each run reveals new strategies, new threats, and mages whose powers evolve in unexpected ways.
+                If early previews are any indication, this may be the next must-play title for fans of strategy and tower defense games.
+            </p>
+            <a href="shared/articles/mage-tower-defense.html" class="read-more">Continue Reading →</a>
+            </div>
+        </article>
+
+        <!-- Article #2 -->
+        <article class="post-card">
+            <div class="post-card-image">
+            <img src="icons/ArticleThumbnail/shredApet.png" alt="Shred a Pet: Mini Update">
+            </div>
+            <div class="post-card-content">
+            <a href="#category" class="category-badge">GAME UPDATES</a>
+            <h3 class="post-card-title">
+                <a href="shared/articles/shred-a-pet-mini-update.html">
+                Shred a Pet: Mini Update
+                </a>
+            </h3>
+            <div class="post-meta">By D3VRO (Rbx) · December 7, 2025</div>
+            <p class="post-card-excerpt">
+                After a quiet period, Shred a Pet is officially back with a fresh content update—bringing new life, new pets, and new excitement to the game.
+                This marks a long-awaited revival for players who’ve been hoping for the next chapter, and the team has delivered with both new collectables and early hints at future gameplay expansion.
+            </p>
+            <a class="read-more" href="shared/articles/shred-a-pet-mini-update.html">Continue Reading →</a>
+            </div>
+        </article>
+
+        <!-- Article #3 -->
+        <article class="post-card">
+            <div class="post-card-image">
+            <img src="icons/ArticleThumbnail/skylands.png" alt="Skylands Tycoon: A New Era Begins">
+            </div>
+            <div class="post-card-content">
+            <a href="#category" class="category-badge">UPCOMING GAMES</a>
+            <h3 class="post-card-title">
+                <a href="#post3">Skylands Tycoon: A New Era Begins</a>
+            </h3>
+            <div class="post-meta">By D3VRO (Rbx) · December 7, 2025</div>
+            <p class="post-card-excerpt">
+                A new era dawns for Skylands Tycoon with the release of its latest update, "A New Era Begins." This major update introduces a plethora of new features, enhancements, and content that promise to elevate the gaming experience to unprecedented heights...
+            </p>
+            <a href="#read" class="read-more">Continue Reading →</a>
+            </div>
+        </article>
 
         </div>
+
     </main>
 
     <footer class="footer">
         <div class="footer-content">
             <nav class="footer-nav">
-                <a href="#game-updates">Game Updates</a>
-                <a href="#new-releases">New Release</a>
-                <a href="#upcoming-games">Upcoming Games</a>
+                <a href="shared/pages/game-upd.html">Game Updates</a>
+                <a href="shared/pages/new-release.html">New Release</a>
+                <a href="shared/pages/upcoming-games.html">Upcoming Games</a>
                 <a href="#home">Home</a>
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact</a>
-                <a href="#privacy">Privacy Policy</a>
+                <a href="shared/pages/about-us.html">About Us</a>
+                <a href="shared/pages/contact.html">Contact</a>
+                <a href="shared/pages/privacy-policy.html">Privacy Policy</a>
             </nav>
             <p>&copy; 2025 RBX Game Source. All rights reserved.</p>
         </div>
@@ -563,48 +161,58 @@
     <!-- Scroll to Top Button -->
     <div id="scrollTopBtn">↑</div>
 
-    <script>
-        // Scroll to Top
-        const scrollBtn = document.getElementById("scrollTopBtn");
+    <!-- NEWSLETTER (Shopify-style bottom-left) -->
+    <button id="newsletterFab" class="newsletter-fab" aria-label="Open newsletter signup">
+    Newsletter
+    </button>
 
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-                scrollBtn.style.opacity = "1";
-                scrollBtn.style.visibility = "visible";
-            } else {
-                scrollBtn.style.opacity = "0";
-                scrollBtn.style.visibility = "hidden";
-            }
-        });
+    <div id="newsletterModal" class="newsletter-modal" aria-hidden="true">
+    <div class="newsletter-card" role="dialog" aria-modal="true" aria-label="Newsletter signup">
+        <div class="newsletter-head">
+        <div class="newsletter-title">Join the Weekly Newsletter</div>
+        <button id="newsletterClose" type="button" class="newsletter-close" aria-label="Close">✕</button>
+        </div>
 
-        scrollBtn.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        <p class="newsletter-subtext">
+        Weekly news on featured Roblox games + a short summary of each new article.
+        </p>
 
-        // Dropdown / hamburger
-        const menuToggle = document.getElementById("menuToggle");
-        const sideMenu = document.getElementById("sideMenu");
+        <!-- Replace action with your Formspree endpoint -->
+        <form
+        class="newsletter-form"
+        action="https://formspree.io/f/xanrlroq"
+        method="POST"
+        >
+        <input type="hidden" name="_subject" value="RBX Game Source — Newsletter Signup" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
-        menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const isOpen = sideMenu.style.display === "block";
-            sideMenu.style.display = isOpen ? "none" : "block";
-        });
+        <label class="newsletter-label" for="newsletterEmail">Email</label>
+        <input
+            id="newsletterEmail"
+            name="email"
+            type="email"
+            required
+            placeholder="you@example.com"
+            class="newsletter-input"
+            autocomplete="email"
+        />
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+        <div class="newsletter-fineprint">
+            No spam. Unsubscribe anytime.
+        </div>
+        </form>
+        <div class="newsletter-success" hidden>
+        <strong>You're in 🎉</strong>
+        <p>You successfully signed up for our newsletter.</p>
+        </div>
+    </div>
+    </div>
 
-        // Close menu when clicking outside
-        document.addEventListener("click", (e) => {
-            if (!sideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                sideMenu.style.display = "none";
-            }
-        });
+    <!-- Optional anchor so the dropdown link has somewhere to land -->
+    <div id="newsletter" style="position: relative; top: -80px;"></div>
+    
 
-        // Close menu when a link is clicked
-        sideMenu.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                sideMenu.style.display = "none";
-            });
-        });
-    </script>
+    <script src="shared/script.js" defer></script>
 
 
 </body>
