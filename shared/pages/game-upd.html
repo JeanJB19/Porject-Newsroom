@@ -16,54 +16,51 @@
 <body>
 
 <!-- ===== HEADER (IDENTICAL TO NEW RELEASE) ===== -->
-<header class="header">
-  <nav class="nav-top">
-    <div class="container">
+ <!-- ===== NAVBAR (same as home) ===== -->
+ <header class="header">
+        <nav class="nav-top">
+            <div class="container">
+            <!-- Hamburger + dropdown -->
+            <button class="hamburger" id="menuToggle" aria-label="Open menu">☰</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
 
-      <!-- Hamburger + theme -->
-      <button class="hamburger" id="menuToggle" aria-label="Open menu">☰</button>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+            <div class="dropdown-menu" id="sideMenu">
+                <a href="../../home.html">Home</a>
+                <a href="about-us.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="#newsletter">Newsletter</a>
+            </div>
 
-      <!-- Mobile dropdown -->
-      <div class="dropdown-menu" id="sideMenu">
-        <a href="../../home.html">Home</a>
-        <a href="about-us.html">About Us</a>
-        <a href="contact.html">Contact</a>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="#newsletter">Newsletter</a>
-      </div>
+            <!-- Main nav links in the center -->
+            <ul class="nav-links">
+                <li><a href="game-upd.html">Game Updates</a></li>
+                <li><a href="new-release.html">New Release</a></li>
+                <li><a href="upcoming-games.html">Upcoming Games</a></li>       
+            </ul>
 
-      <!-- Center nav -->
-      <ul class="nav-links">
-        <li><a href="game-upd.html" class="active">Game Updates</a></li>
-        <li><a href="new-release.html">New Release</a></li>
-        <li><a href="upcoming-games.html">Upcoming Games</a></li>
-      </ul>
+            <!-- Social icons on the right -->
+            <div class="social-links">
+                <a href="#facebook">
+                    <img src="../../icons/facebook.png" alt="Facebook">
+                </a>
+                <a href="#twitter">
+                    <img src="../../icons/twitter.png" alt="Twitter">
+                </a>
+                <a href="#discord">
+                    <img src="../../icons/discord.png" alt="Discord">
+                </a>
+            </div>
 
-      <!-- Social icons -->
-      <div class="social-links">
-        <a href="#facebook">
-          <img src="../../icons/facebook.png" alt="Facebook">
-        </a>
-        <a href="#twitter">
-          <img src="../../icons/twitter.png" alt="Twitter">
-        </a>
-        <a href="#discord">
-          <img src="../../icons/discord.png" alt="Discord">
-        </a>
-      </div>
-
-    </div>
-  </nav>
-
-  <!-- Logo section -->
-  <div class="logo-section">
-    <a href="../../home.html" class="logo-image">
-      <img src="../../icons/WebLogo.png" alt="Site Logo">
-    </a>
-    <p class="tagline">Providing a voice for all indies, one page at a time.</p>
-  </div>
-</header>
+        </div>
+        </nav>
+        <div class="logo-section">
+            <a href="../../home.html" class="logo-image">
+                <img src="../../icons/WebLogo.png" alt="Site Logo">
+            </a>
+            <p class="tagline">Providing a voice for all indies, one page at a time.</p>
+        </div>
+    </header>
 
 <!-- ===== ARTICLES GRID (IDENTICAL TO HOME / NEW RELEASE) ===== -->
 <main class="container">
@@ -124,6 +121,56 @@
 
 <!-- Scroll to top -->
 <div id="scrollTopBtn">↑</div>
+
+<!-- NEWSLETTER (Shopify-style bottom-left) -->
+    <button id="newsletterFab" class="newsletter-fab" aria-label="Open newsletter signup">
+    Newsletter
+    </button>
+
+    <div id="newsletterModal" class="newsletter-modal" aria-hidden="true">
+    <div class="newsletter-card" role="dialog" aria-modal="true" aria-label="Newsletter signup">
+        <div class="newsletter-head">
+        <div class="newsletter-title">Join the Weekly Newsletter</div>
+        <button id="newsletterClose" type="button" class="newsletter-close" aria-label="Close">✕</button>
+        </div>
+
+        <p class="newsletter-subtext">
+        Weekly news on featured Roblox games + a short summary of each new article.
+        </p>
+
+        <!-- Replace action with your Formspree endpoint -->
+        <form
+        class="newsletter-form"
+        action="https://formspree.io/f/xanrlroq"
+        method="POST"
+        >
+        <input type="hidden" name="_subject" value="RBX Game Source — Newsletter Signup" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <label class="newsletter-label" for="newsletterEmail">Email</label>
+        <input
+            id="newsletterEmail"
+            name="email"
+            type="email"
+            required
+            placeholder="you@example.com"
+            class="newsletter-input"
+            autocomplete="email"
+        />
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+        <div class="newsletter-fineprint">
+            No spam. Unsubscribe anytime.
+        </div>
+        </form>
+        <div class="newsletter-success" hidden>
+        <strong>You're in 🎉</strong>
+        <p>You successfully signed up for our newsletter.</p>
+        </div>
+    </div>
+    </div>
+
+    <!-- Optional anchor so the dropdown link has somewhere to land -->
+    <div id="newsletter" style="position: relative; top: -80px;"></div>
 
 <!-- Scripts -->
 <script src="../script.js"></script>
