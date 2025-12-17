@@ -13,7 +13,7 @@ if (scrollBtn) {
   }
 
   window.addEventListener("scroll", updateScrollBtn);
-  updateScrollBtn(); // run once on load
+  updateScrollBtn();
 
   scrollBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -27,8 +27,8 @@ const sideMenu = document.getElementById("sideMenu");
 if (menuToggle && sideMenu) {
   menuToggle.addEventListener("click", (e) => {
     e.stopPropagation();
-    const isOpen = sideMenu.style.display === "block";
-    sideMenu.style.display = isOpen ? "none" : "block";
+    sideMenu.style.display =
+      sideMenu.style.display === "block" ? "none" : "block";
   });
 
   document.addEventListener("click", (e) => {
@@ -50,31 +50,24 @@ const themeToggle = document.getElementById("themeToggle");
 function setTheme(isDark) {
   document.body.classList.toggle("dark", isDark);
   localStorage.setItem("theme", isDark ? "dark" : "light");
-
-  // Only update button if it exists on this page
   if (themeToggle) themeToggle.textContent = isDark ? "☀️" : "🌙";
 }
 
-// Load saved theme on every page (even if button is missing)
-const savedTheme = localStorage.getItem("theme");
-setTheme(savedTheme === "dark");
+setTheme(localStorage.getItem("theme") === "dark");
 
-// Toggle if button exists
 if (themeToggle) {
   themeToggle.addEventListener("click", () => {
     setTheme(!document.body.classList.contains("dark"));
   });
 }
 
-// Newsletter popup + Formspree success state
+// -------------------- Newsletter Modal (Brevo) --------------------
 (() => {
   const fab = document.getElementById("newsletterFab");
   const modal = document.getElementById("newsletterModal");
   const closeBtn = document.getElementById("newsletterClose");
-  const form = modal?.querySelector(".newsletter-form");
-  const success = modal?.querySelector(".newsletter-success");
 
-  if (!fab || !modal || !closeBtn || !form || !success) return;
+  if (!fab || !modal || !closeBtn) return;
 
   const open = () => {
     modal.classList.add("open");
@@ -88,7 +81,10 @@ if (themeToggle) {
     fab.style.display = "";
   };
 
+  // Open modal
   fab.addEventListener("click", open);
+
+  // Close modal
   closeBtn.addEventListener("click", close);
 
   modal.addEventListener("click", (e) => {
@@ -99,28 +95,30 @@ if (themeToggle) {
     if (e.key === "Escape") close();
   });
 
-  document.querySelectorAll('a[href="#newsletter"]').forEach(a => {
+  // Open from menu link
+  document.querySelectorAll('a[href="#newsletter"]').forEach((a) => {
     a.addEventListener("click", (e) => {
       e.preventDefault();
       open();
     });
   });
 
-  // Formspree submit (AJAX)
-  form.addEventListener("submit", async (e) => {
+})();
+
+// -------------------- Form Handling --------------------
+document.querySelectorAll("form").forEach((form) => {
+  form.addEventListener("submit", (e) => {
+    // Allow Brevo to handle its own form
+    if (form.id === "sib-form") return;
+
+    // Other forms (if any)
     e.preventDefault();
 
     const data = new FormData(form);
-
-    const res = await fetch(form.action, {
+    fetch(form.action, {
       method: "POST",
       body: data,
-      headers: { "Accept": "application/json" }
+      headers: { Accept: "application/json" },
     });
-
-    if (res.ok) {
-      form.hidden = true;
-      success.hidden = false;
-    }
   });
-})();
+});
